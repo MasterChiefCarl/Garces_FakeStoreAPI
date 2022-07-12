@@ -7,7 +7,7 @@ import '../services/api_service.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({Key? key}) : super(key: key);
-  
+
   APIService get service => GetIt.I<APIService>();
 
   @override
@@ -21,7 +21,7 @@ class CartScreen extends StatelessWidget {
       body: FutureBuilder(
         future: service.getCart('1'),
         builder: (_, AsyncSnapshot<Cart> cartSnapshot) {
-          print (cartSnapshot);
+          print('BUILDER GOT IT!!!!!$cartSnapshot');
           if (!cartSnapshot.hasData) {
             return const Center(child: CircularProgressIndicator());
           }
@@ -32,15 +32,18 @@ class CartScreen extends StatelessWidget {
             );
           }
 
-          final List<Map<String, dynamic>>? products = cartSnapshot.data!.products;
-          print('Products/n/n''$products');
+          final List<dynamic>? products =
+              cartSnapshot.data!.products;
+          print('Products/n/n' '$products');
           return ListView.separated(
             itemCount: products!.length,
             separatorBuilder: (_, __) => const Divider(thickness: 1),
             itemBuilder: (_, index) {
               final product = products[index];
               return FutureBuilder(
-                future: service.getProduct(product['productId'], ),
+                future: service.getProduct(
+                  product['productId'],
+                ),
                 builder: (BuildContext context,
                     AsyncSnapshot<Product?> productSnapshot) {
                   if (!productSnapshot.hasData) {
@@ -55,7 +58,7 @@ class CartScreen extends StatelessWidget {
                   return ListTile(
                     title: Text(p.title),
                     leading: Image.network(
-                      'p.image',
+                      p.image,
                       height: 40,
                     ),
                     subtitle: Text(
@@ -86,9 +89,10 @@ class CartScreen extends StatelessWidget {
         child: TextButton(
           onPressed: () {
             ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
+              const SnackBar(
                 content: Text('Order Added successfully.'),
-                ),);
+              ),
+            );
           },
           child: const Text(
             'Order Now',

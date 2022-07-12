@@ -3,7 +3,7 @@ class Cart {
   int id;
   int userId;
   DateTime date;
-  List<Map<String, dynamic>>? products;
+  List<dynamic>? products;
 
   Cart({
     required this.id,
@@ -20,4 +20,5 @@ class Cart {
       products: json['products'],
     );
   }
+
 }

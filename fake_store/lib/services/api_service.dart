@@ -26,6 +26,8 @@ class APIService {
       if (data.statusCode == 200) {
         final jsonData = json.decode(data.body);
         final List<Product> products = [];
+        debugprint(jsonData);
+
         for (var item in jsonData) {
           products.add(Product.fromJson(item));
         }
@@ -45,9 +47,13 @@ class APIService {
       if (data.statusCode == 200) {
         final jsonData = json.decode(data.body);
         final products = <Product>[];
+        debugprint(jsonData);
+
         for (var item in jsonData) {
           products.add(Product.fromJson(item));
         }
+        debugprint(products);
+
         return products;
       } else {
         return [];
@@ -61,9 +67,13 @@ class APIService {
       if (data.statusCode == 200) {
         final jsonData = json.decode(data.body);
         final List<String> categories = [];
+        debugprint(jsonData);
+
         for (var item in jsonData) {
           categories.add(item.toString());
         }
+        debugprint(categories);
+
         return categories;
       } else {
         return [];
@@ -76,7 +86,10 @@ class APIService {
       debugprint(data.statusCode);
       if (data.statusCode == 200) {
         final jsonData = json.decode(data.body);
+        debugprint(jsonData);
+
         final Product product = Product.fromJson(jsonData);
+        debugprint(product);
 
         return product;
       }
@@ -90,13 +103,13 @@ class APIService {
     });
   }
 
-  Future<bool> updateCart(int cartNo, int prodId) {
-    return http.patch(Uri.parse('$baseUrl/carts/$cartNo'), body: {
-      'userId': 1,
-      'date': formatDateTime(DateTime.now()),
-      'products': [
+  Future<bool> updateCart(var cartNo, var prodId) {
+    return http.patch(Uri.parse('$baseUrl/carts/$cartNo.toString()'), body: {
+      'userId': '1',
+      'date': formatDateTime(DateTime.now()).toString(),
+      'products': json.encode([
         {'productId': prodId, 'quantity': 1}
-      ],
+      ]),
     }).then((data) {
       debugprint(data.statusCode);
       if (data.statusCode == 200) {
