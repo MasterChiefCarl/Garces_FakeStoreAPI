@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 
 import 'screens/login_screen.dart';
 
+
+void setupLocator() {
+  GetIt.I.registerLazySingleton(() => NotesService());
+}
+
 void main() {
   runApp(const MyApp());
 }
