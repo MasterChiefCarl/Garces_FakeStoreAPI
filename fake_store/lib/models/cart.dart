@@ -1,4 +1,3 @@
-import 'package:fake_store/models/product.dart';
 
 class Cart {
   int id;

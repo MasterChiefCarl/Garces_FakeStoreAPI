@@ -20,7 +20,7 @@ class Product {
     return Product(
         id: item['id'],
         title: item['title'],
-        price: item['price'],
+        price: double.parse(item['price'].toString()),
         description: item['description'],
         image: item['image'],
         category: item['category']);

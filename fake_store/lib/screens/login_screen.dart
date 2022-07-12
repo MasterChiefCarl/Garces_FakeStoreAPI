@@ -7,7 +7,7 @@ import 'home.dart';
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
 
-  APIService get service => GetIt.I<APIService>(); 
+  APIService get service => GetIt.I<APIService>();
   final TextEditingController nameCtrl = TextEditingController(
     text: 'mor_2314',
   );
@@ -54,8 +54,6 @@ class LoginScreen extends StatelessWidget {
                     nameCtrl.text,
                     passwordCtrl.text,
                   );
-
-                  
 
                   if (getToken != null) {
                     ScaffoldMessenger.of(context).showSnackBar(

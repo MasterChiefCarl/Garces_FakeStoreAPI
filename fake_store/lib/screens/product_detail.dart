@@ -8,8 +8,8 @@ class ProductDetailScreen extends StatelessWidget {
   final int id;
 
   const ProductDetailScreen({Key? key, required this.id}) : super(key: key);
-  
-  APIService get service => GetIt.I<APIService>(); 
+
+  APIService get service => GetIt.I<APIService>();
 
   @override
   Widget build(BuildContext context) {
@@ -42,31 +42,36 @@ class ProductDetailScreen extends StatelessWidget {
 
             return SingleChildScrollView(
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const SizedBox(height: 30),
                   Image.network(
-                    '[image]',
+                    product.image,
                     height: 200,
                     width: double.infinity,
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    '\$$product.price',
+                    '\$${product.price}',
                     style: const TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(height: 10),
-                  Text(
-                    product.title,
-                    style: const TextStyle(
-                      fontSize: 25,
+                  Center(
+                    child: Text(
+                      product.title,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontSize: 25,
+                      ),
                     ),
                   ),
-                   Chip(
+                  Chip(
                     label: Text(
-                      '$product.category',
+                      product.category,
                       style: const TextStyle(
                         fontSize: 15,
                         color: Colors.white,
@@ -85,12 +90,21 @@ class ProductDetailScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.green,
         onPressed: () async {
-          await updateCart(1, id);
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Product added to cart'),
-            ),
-          );
+          bool sucess = await service.updateCart(1, id);
+
+          if (sucess = true) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Product added to cart'),
+              ),
+            );
+          }else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Product add failed'),
+              ),
+            );
+          }
         },
         child: const Icon(Icons.add_shopping_cart),
       ),

@@ -42,13 +42,14 @@ class HomeScreen extends StatelessWidget {
         child: FutureBuilder(
             future: service.getAllProducts(),
             builder: (_, AsyncSnapshot<List<Product>> snapshot) {
+              print(snapshot);
               if (!snapshot.hasData) {
                 return const CircularProgressIndicator();
               }
-              final products = snapshot.data!;
+              final products = snapshot.data;
               return ListView.separated(
                 separatorBuilder: (_, __) => const Divider(thickness: 1),
-                itemCount: products.length,
+                itemCount: products!.length,
                 itemBuilder: ((context, index) {
                   final product = snapshot.data![index];
                   return ListTile(
