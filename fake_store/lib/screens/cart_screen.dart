@@ -79,7 +79,12 @@ class CartScreen extends StatelessWidget {
         width: double.infinity,
         color: Colors.green,
         child: TextButton(
-          onPressed: () {},
+          onPressed: () {
+            ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+                content: Text('Order Added successfully.'),
+                ),);
+          },
           child: const Text(
             'Order Now',
             style: TextStyle(
