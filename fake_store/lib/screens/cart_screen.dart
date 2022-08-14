@@ -21,7 +21,7 @@ class CartScreen extends StatelessWidget {
       body: FutureBuilder(
         future: service.getCart('1'),
         builder: (_, AsyncSnapshot<Cart> cartSnapshot) {
-          print('BUILDER GOT IT!!!!!$cartSnapshot');
+          // print('BUILDER GOT IT!!!!!$cartSnapshot');
           if (!cartSnapshot.hasData) {
             return const Center(child: CircularProgressIndicator());
           }
@@ -34,7 +34,7 @@ class CartScreen extends StatelessWidget {
 
           final List<dynamic>? products =
               cartSnapshot.data!.products;
-          print('Products/n/n' '$products');
+          // print('Products/n/n' '$products');
           return ListView.separated(
             itemCount: products!.length,
             separatorBuilder: (_, __) => const Divider(thickness: 1),
